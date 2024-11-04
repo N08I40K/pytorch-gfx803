@@ -14,6 +14,26 @@ Python 3.10.6
 - torchvision 0.14.1
 ```
 
+## Workaround for Ubuntu 22.04.5
+### Do this before installing ROCm
+
+```bash
+wget https://raw.githubusercontent.com/pimlie/ubuntu-mainline-kernel.sh/master/ubuntu-mainline-kernel.sh
+chmod +x ubuntu-mainline-kernel.sh
+
+sudo ./ubuntu-mainline-kernel.sh -i v5.18.13
+sudo update-grub
+
+sudo reboot
+# (in grub) Advanced options for Ubuntu -> Linux kernel 5.18.13
+
+dpkg -l | grep linux-image
+sudo apt-get purge linux-image-(newer kernel version eg. 6.8.0)-generic
+sudo apt-get purge linux-headers-(newer kernel version eg. 6.8.0)-generic
+
+sudo reboot
+```
+
 ## Install ROCm
 
 Ubuntu and other Debian-based distros:
